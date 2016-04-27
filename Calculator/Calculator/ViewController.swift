@@ -11,15 +11,27 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet private weak var display: UILabel!
-    var userIsInTheMiddleOfTyping: Bool = false
+    private var userIsInTheMiddleOfTyping: Bool = false
     private var brain: CalculatorBrin = CalculatorBrin()
-    
+    private var savedProgram: CalculatorBrin.PropertyList?
+        
     private var displayValue: Double {
         get {
             return Double(display.text!)!
         }
         set {
             display.text = String(newValue)
+        }
+    }
+    
+    @IBAction private func save(sender: AnyObject) {
+        savedProgram = brain.program
+    }
+    
+    @IBAction private func restore(sender: AnyObject) {
+        if savedProgram != nil {
+            brain.program = savedProgram!
+            displayValue = brain.result
         }
     }
     //Number
